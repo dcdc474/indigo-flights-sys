@@ -8,7 +8,7 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="3453aa77-cf55-4811-9126-2c50df02b4a2" >
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
-	<db:config name="MySQLDBConfiguration" doc:name="Database Config" doc:id="5af11144-6789-4bcb-bea9-c5a9e7ba7a15" >
-		<db:my-sql-connection host="dcbookmyholiday.cvvndxt972kn.us-east-1.rds.amazonaws.com" port="3306" user="admin" password="administrator" database="BookMyHoliday" />
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="4f00ff37-5a5e-4b04-ae52-2e9edfb2a79b" >
+		<db:my-sql-connection host="dcbookmyholiday.cvvndxt972kn.us-east-1.rds.amazonaws.com" port="3306" user="admin" password="administrator" database="BookMyHoliday"/>
 	</db:config>
 </mule>

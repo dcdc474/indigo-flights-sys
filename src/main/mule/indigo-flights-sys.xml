@@ -9,7 +9,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="indigo-flights-sysFlow" doc:id="d6c79bb8-4432-4a1e-b0e0-ec3347217d91" >
 		<http:listener doc:name="Listener" doc:id="af58e522-5560-4964-a7fe-44bbcf8e090b" config-ref="HTTP_Listener_config" path="/flights"/>
 		<logger level="INFO" doc:name="Begin Logger" doc:id="2e073992-e297-486b-b366-b2ff1a23fee2" message="Reteriving flights begin...."/>
-		<db:select doc:name="Select" doc:id="c69c1259-a07f-4f7f-a0da-a8c0f573fb09" config-ref="MySQLDBConfiguration">
+		<db:select doc:name="Select" doc:id="35c52e90-7726-498e-ab51-767c8280c34b" config-ref="Database_Config">
 			<db:sql ><![CDATA[select * from IndigoFlights Where origin=:origin and destination=:destination and departureDate = :date]]></db:sql>
 			<db:input-parameters ><![CDATA[#[{
 	'origin': attributes.queryParams.origin default "",
