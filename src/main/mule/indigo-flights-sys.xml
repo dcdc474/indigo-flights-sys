@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<flow name="indigo-flights-sysFlow" doc:id="d6c79bb8-4432-4a1e-b0e0-ec3347217d91" >
 		<http:listener doc:name="Listener" doc:id="af58e522-5560-4964-a7fe-44bbcf8e090b" config-ref="HTTP_Listener_config" path="/flights"/>
 		<logger level="INFO" doc:name="Begin Logger" doc:id="2e073992-e297-486b-b366-b2ff1a23fee2" message="Reteriving flights begin...."/>
-		<set-payload value="getting Flights" doc:name="Set Payload" doc:id="0a989289-61fa-4690-a9a7-04839b6f45ef" />
+		<db:select doc:name="Select" doc:id="c69c1259-a07f-4f7f-a0da-a8c0f573fb09" config-ref="MySQLDBConfiguration">
+			<db:sql ><![CDATA[select * from IndigoFlights Where origin=:origin and destination=:destination and departureDate = :date]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	'origin': attributes.queryParams.origin default "",
+	'destination' : attributes.queryParams.destination default "",
+	'date' : attributes.queryParams.depatureDate default "1990-01-01"
+}]]]></db:input-parameters>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="63584728-8b70-4f50-a8a2-5b1653c842e1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload map ( payload01 , indexOfPayload01 ) -> {
+	ID: payload01.ID as String default 0,
+	code: payload01.code default "",
+	origin: payload01.origin default "",
+	destination: payload01.destination default "",
+	departureDate: payload01.departureDate default "",
+	price: payload01.price default 0, 
+	planeType: payload01.planeType default ""	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
 		<logger level="INFO" doc:name="End Logger" doc:id="eeca14ea-6872-414d-880f-b7fcc81bfdb9" message="Reteriving Flights End"/>
 	</flow>
 </mule>
