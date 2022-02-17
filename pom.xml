@@ -89,7 +89,7 @@
 		<dependency>
 			<groupId>2f8dce0e-4fb6-42d2-ab96-8f6b2c8f4947</groupId>
 			<artifactId>sys-indigo-flights</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.2</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>

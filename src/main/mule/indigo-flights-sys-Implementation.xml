@@ -37,4 +37,22 @@ payload map ( payload01 , indexOfPayload01 ) -> {
 		</ee:transform>
 		<logger level="INFO" doc:name="End Logger" doc:id="eeca14ea-6872-414d-880f-b7fcc81bfdb9" message="Reteriving Flights End"/>
 	</flow>
+	<flow name="GetFlightsByID" doc:id="befcd769-107c-416e-8dbc-0bb44bf895a4" >
+		<logger level="INFO" doc:name="Logger" doc:id="88bdc549-1627-417c-a629-842f5b6a8465" message="Begin reterieval of specific flight..."/>
+		<db:select doc:name="Select" doc:id="e526ce63-0921-4d4b-a8f1-9dd41e8df1ee" config-ref="Database_Config">
+			<db:sql ><![CDATA[select * from IndigoFlights where ID=:uriId]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{	
+	'uriId':attributes.uriParams.ID
+}]]]></db:input-parameters>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="449aaf01-42be-4d0b-a7f2-44dec88de869" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="0f3b65e9-201a-4c69-be37-dc399e9e990b" message="Begin reterieval of specific flight..."/>
+	</flow>
 </mule>
