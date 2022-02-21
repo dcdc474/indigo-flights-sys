@@ -1,0 +1,11 @@
+db:
+  host: "![24xfy2HdYeaz3eY7gaa7VjoSs/26JqkwxiQ+VwjDcKgxGmm5oNBJfLQNb0JNXzMtwGpuW1KBNBZw2w4Qn5Td3g==]"
+  port: "![dvJ8JQUckplwUgwlT7M2hg==]"
+  user: "![lR2Dhk2AQTvTMi3sNekebA==]"
+  password: "![dmvtLMuMi5sq55MYkCDvxQ==]"
+  database: "![1/SrmjeeteFgJ+PY1t/feA==]"
+
+autodiscovery:
+  apiId: "![9Z17x3TK3sx2weN3AtJ8hA==]"
+  flow: "![PwWHJaisv+dk8eNd835YBEhyeHZGGudTukWs9YO9zE8=]"
+
